@@ -6,14 +6,32 @@ pipeline {
         echo 'Fetching Code....'
       }
     }
-    stage('Build ') {
-      steps {
-        echo 'Building the code...'
+    stage('Java Build') {
+      parallel {
+        stage('Build ') {
+          steps {
+            echo 'Building the code...'
+          }
+        }
+        stage('Compile') {
+          steps {
+            bat 'javac App.java'
+          }
+        }
       }
     }
-    stage('Deploy') {
-      steps {
-        echo 'Deploying the code...'
+    stage('Execution') {
+      parallel {
+        stage('Deploy') {
+          steps {
+            echo 'Deploying the code...'
+          }
+        }
+        stage('Execute') {
+          steps {
+            bat 'java App'
+          }
+        }
       }
     }
     stage('Report') {
