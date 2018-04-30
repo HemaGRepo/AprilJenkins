@@ -36,7 +36,7 @@ pipeline {
     }
     stage('Report') {
       steps {
-        echo 'Reports created..Success'
+        echo 'Generating reports...'
       }
     }
   }
